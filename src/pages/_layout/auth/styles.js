@@ -30,7 +30,7 @@ export const Content = styled.div`
     margin-top: 30px;
     text-align: left;
 
-    span {
+    p {
       font-family: sans-serif;
       font-weight: bold;
       font-size: 14px;
@@ -50,6 +50,14 @@ export const Content = styled.div`
       &::placeholder {
         color: #888888;
       }
+    }
+
+    span {
+      color: #f64c75;
+      align-self: flex-start;
+      margin: 0 0 10px;
+      font-weight: bold;
+      font-family: sans-serif;
     }
 
     button {
