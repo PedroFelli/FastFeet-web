@@ -5,7 +5,8 @@ import Route from './Route';
 import SignIn from '../pages/SignIn';
 
 import Dashboard from '../pages/Dashboard';
-import Profile from '../pages/Profile';
+import Destinatarios from '../pages/Destinatarios';
+import Entregadores from '../pages/Entregadores';
 
 export default function Routes() {
   return (
@@ -13,7 +14,8 @@ export default function Routes() {
       <Route path="/" exact component={SignIn} />
 
       <Route path="/dashboard" component={Dashboard} isPrivate />
-      <Route path="/profile" component={Profile} isPrivate />
+      <Route path="/entregadores" component={Entregadores} isPrivate />
+      <Route path="/destinatarios" component={Destinatarios} isPrivate />
     </Switch>
   );
 }
