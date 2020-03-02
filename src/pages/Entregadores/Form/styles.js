@@ -19,13 +19,14 @@ export const Container = styled.div`
     }
 
     input {
+      font-size: 16px;
+      text-indent: 10px;
       border: 0.5;
       border-radius: 4px;
       height: 34px;
-      color: #ddd;
+      color: #666666;
       margin: 8px 0;
       border: 1px solid #ccc;
-      font-weight: bold;
     }
   }
 `;

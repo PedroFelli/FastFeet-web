@@ -72,8 +72,6 @@ export const Container = styled.div`
     position: relative;
     display: inline-block;
   }
-
-  /* Dropdown Content (Hidden by Default) */
   .dropdown-content {
     display: none;
     position: absolute;
@@ -81,15 +79,10 @@ export const Container = styled.div`
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
     text-align: -webkit-left;
-  }
 
-  /* Links inside the dropdown */
-  .dropdown-content a {
-    color: black;
-    padding: 4px 16px;
-    text-decoration: none;
-    display: block;
-    border-bottom: 1px solid #ddd;
+    &:hover {
+      background: ${darken(0.1, '#fff')};
+    }
   }
 
   button {
@@ -99,21 +92,15 @@ export const Container = styled.div`
     padding: 4px 16px;
     display: flex;
     flex-direction: row;
+    width: 100%;
+
+    &:hover {
+      background: ${darken(0.1, '#fff')};
+    }
   }
 
-  /* Change color of dropdown links on hover */
-  .dropdown-content a:hover {
-    background-color: #f1f1f1;
-  }
-
-  /* Show the dropdown menu on hover */
   .dropdown:hover .dropdown-content {
     display: block;
-  }
-
-  /* Change the background color of the dropdown button when the dropdown content is shown */
-  .dropdown:hover .dropbtn {
-    background-color: #dddddd;
   }
 `;
 

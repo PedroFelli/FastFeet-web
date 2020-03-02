@@ -1,10 +1,14 @@
 import React, { useEffect, useState, useMemo } from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
 import { toast } from 'react-toastify';
 import { Form, Input } from '@rocketseat/unform';
 
 import api from '~/services/api';
 import history from '~/services/history';
 
+import AvatarInput from '~/components/AvatarInput';
 import { Container, Funcoes } from './styles';
 
 export default function Edit({ match }) {
@@ -21,6 +25,7 @@ export default function Edit({ match }) {
         const response = await api.get(`deliveryman/${id}`);
 
         const { data } = response;
+        console.log(data);
 
         if (!data) throw new Error('Error to load deliveryman data');
 
@@ -42,21 +47,22 @@ export default function Edit({ match }) {
   async function handleSubmit(data) {
     if (id) {
       try {
-        const { title, duration, price } = data;
+        const { name, email } = data;
 
-        await api.put(`deliveryman/${id}`, { title, duration, price });
+        await api.put(`deliveryman/${id}`, { name, email });
 
-        toast.success('Plano editado com sucesso.');
+        toast.success('Entregador editado com sucesso.');
 
         history.push('/deliveryman');
       } catch (error) {
-        toast.error('Não foi possível cadastrar o plano.');
+        console.log(error);
+        toast.error('Não foi possível atualizar o cadastro.');
       }
     } else {
       try {
-        const { title, duration, price } = data;
+        const { name, email } = data;
 
-        await api.post('deliveryman', { title, duration, price });
+        await api.post('deliveryman', { name, email });
 
         toast.success('Plano cadastrado com sucesso.');
 
@@ -73,15 +79,17 @@ export default function Edit({ match }) {
         <Funcoes>
           <h2>Cadastro de entregadores</h2>
           <div>
-            <button type="button" className="voltar">
-              Voltar
-            </button>
+            <Link to="/deliveryman">
+              <button type="button" className="voltar">
+                Voltar
+              </button>
+            </Link>
             <button type="submit" className="salvar">
               Salvar
             </button>
           </div>
         </Funcoes>
-
+        <AvatarInput name="avatar_id" />
         <span>Nome:</span>
         <Input name="name" placeholder="" />
         <span>Email:</span>
@@ -90,3 +98,19 @@ export default function Edit({ match }) {
     </Container>
   );
 }
+
+Edit.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }),
+};
+
+Edit.defaultProps = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: null,
+    }),
+  }),
+};
