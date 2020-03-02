@@ -58,22 +58,6 @@ export const Container = styled.div`
     padding-top: 5px;
   }
 
-  .visualizar {
-    color: #7d40e7;
-    display: inline-grid;
-    padding: 4px;
-  }
-  .editar {
-    color: #4d85ee;
-    display: inline-grid;
-    padding: 4px;
-  }
-  .excluir {
-    color: #de3b3b;
-    display: inline-grid;
-    padding: 4px;
-  }
-
   .dropbtn {
     background-color: #fff;
     color: #999999;
@@ -94,7 +78,6 @@ export const Container = styled.div`
     display: none;
     position: absolute;
     background-color: #ffffff;
-    min-width: 140px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
     text-align: -webkit-left;
@@ -107,6 +90,15 @@ export const Container = styled.div`
     text-decoration: none;
     display: block;
     border-bottom: 1px solid #ddd;
+  }
+
+  button {
+    background: white;
+    border: none;
+    color: black;
+    padding: 4px 16px;
+    display: flex;
+    flex-direction: row;
   }
 
   /* Change color of dropdown links on hover */
