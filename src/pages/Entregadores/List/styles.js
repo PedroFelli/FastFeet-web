@@ -28,7 +28,9 @@ export const Container = styled.div`
   img {
     vertical-align: middle;
     margin-right: 6px;
-    border-radius: 20px;
+    border-radius: 50px;
+    height: 50px;
+    width: 50px;
   }
 
   span {

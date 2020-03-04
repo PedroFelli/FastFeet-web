@@ -58,7 +58,7 @@ export default class Dashboard extends Component {
               <tr key={deliveryman.id}>
                 <td>#{deliveryman.id}</td>
                 <td>
-                  <img src="https://api.adorable.io/avatars/40/abott@adorable.png" />
+                  <img src={deliveryman.avatar.url} />
                 </td>
                 <td> {deliveryman.name}</td>
                 <td>{deliveryman.email}</td>

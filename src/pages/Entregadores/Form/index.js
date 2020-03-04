@@ -9,12 +9,12 @@ import api from '~/services/api';
 import history from '~/services/history';
 
 import AvatarInput from '~/components/AvatarInput';
-import { Container, Funcoes } from './styles';
+import { Container, Funcoes, Avatar } from './styles';
 
 export default function Edit({ match }) {
   const { id } = match.params;
 
-  const [initialData, setInitialData] = useState();
+  const [initialData, setInitialData] = useState({ avatar: {} });
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -25,7 +25,6 @@ export default function Edit({ match }) {
         const response = await api.get(`deliveryman/${id}`);
 
         const { data } = response;
-        console.log(data);
 
         if (!data) throw new Error('Error to load deliveryman data');
 
@@ -47,9 +46,9 @@ export default function Edit({ match }) {
   async function handleSubmit(data) {
     if (id) {
       try {
-        const { name, email } = data;
+        const { name, email, avatar_id } = data;
 
-        await api.put(`deliveryman/${id}`, { name, email });
+        await api.put(`deliveryman/${id}`, { name, email, avatar_id });
 
         toast.success('Entregador editado com sucesso.');
 
@@ -89,7 +88,9 @@ export default function Edit({ match }) {
             </button>
           </div>
         </Funcoes>
-        <AvatarInput name="avatar_id" />
+
+        <AvatarInput url={initialData.avatar.url} />
+
         <span>Nome:</span>
         <Input name="name" placeholder="" />
         <span>Email:</span>
