@@ -10,8 +10,6 @@ import {
 
 import { Link } from 'react-router-dom';
 
-import ConfirmButton from '~/components/Button/Confirm';
-
 import { Container, Funcoes, StatusEntregue } from './styles';
 
 export default function Dashboard() {
@@ -21,7 +19,6 @@ export default function Dashboard() {
         <strong>Gerenciando encomendas</strong>
         <Funcoes>
           <input placeholder="Buscar por encomenas" />
-          <ConfirmButton type="submit"> + Cadastrar</ConfirmButton>
         </Funcoes>
       </header>
       <table>

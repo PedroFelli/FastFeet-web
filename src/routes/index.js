@@ -16,7 +16,7 @@ export default function Routes() {
 
       <Route path="/dashboard" component={Dashboard} isPrivate />
       <Route path="/deliveryman" exact component={Entregadores} isPrivate />
-      <Route path="/deliveryman/form" component={EntregadoresForm} isPrivate />
+      <Route path="/deliveryman/new" component={EntregadoresForm} isPrivate />
       <Route path="/deliveryman/:id" component={EntregadoresForm} isPrivate />
       <Route path="/destinatarios" component={Destinatarios} isPrivate />
     </Switch>

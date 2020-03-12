@@ -35,7 +35,10 @@ const AvatarInput = ({ url }) => {
   return (
     <Container>
       <label htmlFor="avatar">
-        <img src={preview || url} alt="Foto de perfil" />
+        <img
+          src={preview || url || 'http://localhost:3333/files/salvar.png'}
+          alt="Foto de perfil"
+        />
 
         <input
           type="file"

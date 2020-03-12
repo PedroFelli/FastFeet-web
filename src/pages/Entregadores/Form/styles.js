@@ -9,13 +9,19 @@ export const Container = styled.div`
 
   form {
     background: #fff;
-    height: 400px;
+    height: 460px;
     padding: 30px;
     display: flex;
     flex-direction: column;
 
+    p {
+      font-weight: bold;
+    }
+
     span {
       font-weight: bold;
+      color: red;
+      font-size: 12px;
     }
 
     input {
@@ -35,14 +41,23 @@ export const Funcoes = styled.div`
   display: flex;
   justify-content: space-between;
 
-  .salvar {
-    background: #7d40e7;
+  span {
+    color: #fff;
+    font-size: 16px;
+  }
+
+  .butoes {
+    display: flex;
   }
 
   button {
+    display: flex;
+    align-items: flex-end;
+    padding-left: 19px;
     width: 120px;
-    margin: 5px 8px 18px;
-    height: 32px;
+    background: #7d40e7;
+    margin: 5px 4px 0;
+    height: 40px;
     font-weight: bold;
     color: #fff;
     border: 0;
@@ -51,7 +66,7 @@ export const Funcoes = styled.div`
     transition: background 0.2;
 
     &:hover {
-      background: ${darken(0.1, '#7d40e7')};
+      background: ${darken(0.3, '#7d40e7')};
     }
   }
 `;

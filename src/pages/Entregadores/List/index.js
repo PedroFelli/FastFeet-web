@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import { MdMoreHoriz, MdDelete } from 'react-icons/md';
-
-import ConfirmButton from '~/components/Button/Confirm';
+import { MdMoreHoriz, MdDelete, MdAdd } from 'react-icons/md';
 
 import { Container, Funcoes } from './styles';
 import api from '~/services/api';
@@ -29,6 +27,12 @@ export default class Dashboard extends Component {
     });
   };
 
+  checkImg = e => {
+    if (e === null) {
+      return 'https://api.adorable.io/avatars/abott@adorable.png';
+    } else return e.url;
+  };
+
   render() {
     const { deliverymans } = this.state;
 
@@ -38,8 +42,11 @@ export default class Dashboard extends Component {
           <strong>Entregadores</strong>
           <Funcoes>
             <input placeholder="Buscar por entregadores " />
-            <Link to={`deliveryman/form`}>
-              <ConfirmButton type="submit"> + Cadastrar</ConfirmButton>
+            <Link to="/deliveryman/new">
+              <button>
+                <MdAdd />
+                Cadastrar
+              </button>
             </Link>
           </Funcoes>
         </header>
@@ -58,7 +65,7 @@ export default class Dashboard extends Component {
               <tr key={deliveryman.id}>
                 <td>#{deliveryman.id}</td>
                 <td>
-                  <img src={deliveryman.avatar.url} />
+                  <img src={this.checkImg(deliveryman.avatar)} />
                 </td>
                 <td> {deliveryman.name}</td>
                 <td>{deliveryman.email}</td>

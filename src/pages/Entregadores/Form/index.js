@@ -1,15 +1,23 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { toast } from 'react-toastify';
 import { Form, Input } from '@rocketseat/unform';
+import * as Yup from 'yup';
 
 import api from '~/services/api';
 import history from '~/services/history';
 
 import AvatarInput from '~/components/AvatarInput';
-import { Container, Funcoes, Avatar } from './styles';
+import { Container, Funcoes } from './styles';
+
+const schema = Yup.object().shape({
+  name: Yup.string().required('Nome é obrigatório'),
+  email: Yup.string()
+    .email('Insira um e-mail válido')
+    .required('O email é obrigatório'),
+});
 
 export default function Edit({ match }) {
   const { id } = match.params;
@@ -27,6 +35,10 @@ export default function Edit({ match }) {
         const { data } = response;
 
         if (!data) throw new Error('Error to load deliveryman data');
+
+        if (!response.data.avatar) {
+          response.data.avatar = [];
+        }
 
         setInitialData(response.data);
       } catch (error) {
@@ -59,25 +71,25 @@ export default function Edit({ match }) {
       }
     } else {
       try {
-        const { name, email } = data;
+        const { name, email, avatar_id } = data;
 
-        await api.post('deliveryman', { name, email });
+        await api.post('deliveryman', { name, email, avatar_id });
 
-        toast.success('Plano cadastrado com sucesso.');
+        toast.success('Entregador cadastrado com sucesso.');
 
         history.push('/deliveryman');
       } catch (error) {
-        toast.error('Não foi possível cadastrar o plano.');
+        toast.error('Não foi possível cadastrar o entregador.');
       }
     }
   }
 
   return (
     <Container>
-      <Form initialData={initialData} onSubmit={handleSubmit}>
+      <Form schema={schema} initialData={initialData} onSubmit={handleSubmit}>
         <Funcoes>
-          <h2>Cadastro de entregadores</h2>
-          <div>
+          <h1>{id ? 'Editar entregador' : 'Cadastrar entregador'}</h1>
+          <div className="butoes">
             <Link to="/deliveryman">
               <button type="button" className="voltar">
                 Voltar
@@ -91,9 +103,9 @@ export default function Edit({ match }) {
 
         <AvatarInput url={initialData.avatar.url} />
 
-        <span>Nome:</span>
+        <p>Nome:</p>
         <Input name="name" placeholder="" />
-        <span>Email:</span>
+        <p>Email:</p>
         <Input name="email" type="email" placeholder="" />
       </Form>
     </Container>

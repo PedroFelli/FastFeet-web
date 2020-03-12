@@ -1,29 +1,50 @@
-import React, { useEffect } from 'react';
-
-import api from '~/services/api';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import {
   MdMoreHoriz,
   MdRemoveRedEye,
   MdModeEdit,
   MdDelete,
-  MdFiberManualRecord,
 } from 'react-icons/md';
 
 import { Link } from 'react-router-dom';
 
-import ConfirmButton from '~/components/Button/Confirm';
+import { Container, Funcoes } from './styles';
 
-import { Container, Funcoes, StatusEntregue } from './styles';
+import api from '~/services/api';
+import history from '~/services/history';
 
-export default function Dashboard() {
+export default function Destinatarios() {
+  const [recipients, setRecipients] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    async function loadRecipients() {
+      try {
+        setLoading(true);
+
+        const response = await api.get('recipients');
+        setRecipients(response.data);
+        console.log(response.data);
+      } catch (error) {
+        toast.error('Erro ao carregar dados.');
+
+        history.push('/dashboard');
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadRecipients();
+  }, []);
+
   return (
     <Container>
       <header>
         <strong>Destinatarios</strong>
         <Funcoes>
           <input placeholder="Buscar por destinatarios " />
-          <ConfirmButton type="submit"> + Cadastrar</ConfirmButton>
         </Funcoes>
       </header>
       <table>
@@ -33,276 +54,36 @@ export default function Dashboard() {
           <th>Endereço</th>
           <th>Ações</th>
         </tr>
-        <tr>
-          <td>#01</td>
-          <td> John Doe</td>
-          <td>Rua Beethoven, 19090, Diadema, São Paulo</td>
-          <td>
-            <div className="dropdown">
-              <MdMoreHoriz />
-              <div className="dropdown-content">
-                <Link to="/">
-                  <div className="visualizar">
-                    <MdRemoveRedEye />
-                  </div>
-                  Visualizar
-                </Link>
-                <Link to="/">
-                  <div className="editar">
-                    <MdModeEdit />
-                  </div>
-                  Editar
-                </Link>
-                <Link to="/">
-                  <div className="excluir">
-                    <MdDelete />
-                  </div>
-                  Excluir
-                </Link>
+
+        {recipients.map(recipient => (
+          <tr key={recipient.id}>
+            <td>#{recipient.id}</td>
+            <td>{recipient.nome}</td>
+            <td>
+              {recipient.rua}, {recipient.numero}, {recipient.cidade},{' '}
+              {recipient.estado}
+            </td>
+            <td>
+              <div className="dropdown">
+                <MdMoreHoriz />
+                <div className="dropdown-content">
+                  <Link to="/">
+                    <div className="editar">
+                      <MdModeEdit />
+                    </div>
+                    Editar
+                  </Link>
+                  <Link to="/">
+                    <div className="excluir">
+                      <MdDelete />
+                    </div>
+                    Excluir
+                  </Link>
+                </div>
               </div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>#01</td>
-          <td> John Doe</td>
-          <td>Rua Beethoven, 19090, Diadema, São Paulo</td>
-          <td>
-            <div className="dropdown">
-              <MdMoreHoriz />
-              <div className="dropdown-content">
-                <Link to="/">
-                  <div className="visualizar">
-                    <MdRemoveRedEye />
-                  </div>
-                  Visualizar
-                </Link>
-                <Link to="/">
-                  <div className="editar">
-                    <MdModeEdit />
-                  </div>
-                  Editar
-                </Link>
-                <Link to="/">
-                  <div className="excluir">
-                    <MdDelete />
-                  </div>
-                  Excluir
-                </Link>
-              </div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>#01</td>
-          <td> John Doe</td>
-          <td>Rua Beethoven, 19090, Diadema, São Paulo</td>
-          <td>
-            <div className="dropdown">
-              <MdMoreHoriz />
-              <div className="dropdown-content">
-                <Link to="/">
-                  <div className="visualizar">
-                    <MdRemoveRedEye />
-                  </div>
-                  Visualizar
-                </Link>
-                <Link to="/">
-                  <div className="editar">
-                    <MdModeEdit />
-                  </div>
-                  Editar
-                </Link>
-                <Link to="/">
-                  <div className="excluir">
-                    <MdDelete />
-                  </div>
-                  Excluir
-                </Link>
-              </div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>#01</td>
-          <td> John Doe</td>
-          <td>Rua Beethoven, 19090, Diadema, São Paulo</td>
-          <td>
-            <div className="dropdown">
-              <MdMoreHoriz />
-              <div className="dropdown-content">
-                <Link to="/">
-                  <div className="visualizar">
-                    <MdRemoveRedEye />
-                  </div>
-                  Visualizar
-                </Link>
-                <Link to="/">
-                  <div className="editar">
-                    <MdModeEdit />
-                  </div>
-                  Editar
-                </Link>
-                <Link to="/">
-                  <div className="excluir">
-                    <MdDelete />
-                  </div>
-                  Excluir
-                </Link>
-              </div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>#01</td>
-          <td> John Doe</td>
-          <td>Rua Beethoven, 19090, Diadema, São Paulo</td>
-          <td>
-            <div className="dropdown">
-              <MdMoreHoriz />
-              <div className="dropdown-content">
-                <Link to="/">
-                  <div className="visualizar">
-                    <MdRemoveRedEye />
-                  </div>
-                  Visualizar
-                </Link>
-                <Link to="/">
-                  <div className="editar">
-                    <MdModeEdit />
-                  </div>
-                  Editar
-                </Link>
-                <Link to="/">
-                  <div className="excluir">
-                    <MdDelete />
-                  </div>
-                  Excluir
-                </Link>
-              </div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>#01</td>
-          <td> John Doe</td>
-          <td>Rua Beethoven, 19090, Diadema, São Paulo</td>
-          <td>
-            <div className="dropdown">
-              <MdMoreHoriz />
-              <div className="dropdown-content">
-                <Link to="/">
-                  <div className="visualizar">
-                    <MdRemoveRedEye />
-                  </div>
-                  Visualizar
-                </Link>
-                <Link to="/">
-                  <div className="editar">
-                    <MdModeEdit />
-                  </div>
-                  Editar
-                </Link>
-                <Link to="/">
-                  <div className="excluir">
-                    <MdDelete />
-                  </div>
-                  Excluir
-                </Link>
-              </div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>#01</td>
-          <td> John Doe</td>
-          <td>Rua Beethoven, 19090, Diadema, São Paulo</td>
-          <td>
-            <div className="dropdown">
-              <MdMoreHoriz />
-              <div className="dropdown-content">
-                <Link to="/">
-                  <div className="visualizar">
-                    <MdRemoveRedEye />
-                  </div>
-                  Visualizar
-                </Link>
-                <Link to="/">
-                  <div className="editar">
-                    <MdModeEdit />
-                  </div>
-                  Editar
-                </Link>
-                <Link to="/">
-                  <div className="excluir">
-                    <MdDelete />
-                  </div>
-                  Excluir
-                </Link>
-              </div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>#01</td>
-          <td> John Doe</td>
-          <td>Rua Beethoven, 19090, Diadema, São Paulo</td>
-          <td>
-            <div className="dropdown">
-              <MdMoreHoriz />
-              <div className="dropdown-content">
-                <Link to="/">
-                  <div className="visualizar">
-                    <MdRemoveRedEye />
-                  </div>
-                  Visualizar
-                </Link>
-                <Link to="/">
-                  <div className="editar">
-                    <MdModeEdit />
-                  </div>
-                  Editar
-                </Link>
-                <Link to="/">
-                  <div className="excluir">
-                    <MdDelete />
-                  </div>
-                  Excluir
-                </Link>
-              </div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>#01</td>
-          <td> John Doe</td>
-          <td>Rua Beethoven, 19090, Diadema, São Paulo</td>
-          <td>
-            <div className="dropdown">
-              <MdMoreHoriz />
-              <div className="dropdown-content">
-                <Link to="/">
-                  <div className="visualizar">
-                    <MdRemoveRedEye />
-                  </div>
-                  Visualizar
-                </Link>
-                <Link to="/">
-                  <div className="editar">
-                    <MdModeEdit />
-                  </div>
-                  Editar
-                </Link>
-                <Link to="/">
-                  <div className="excluir">
-                    <MdDelete />
-                  </div>
-                  Excluir
-                </Link>
-              </div>
-            </div>
-          </td>
-        </tr>
+            </td>
+          </tr>
+        ))}
       </table>
     </Container>
   );
