@@ -12,13 +12,6 @@ import history from '~/services/history';
 import AvatarInput from '~/components/AvatarInput';
 import { Container, Funcoes } from './styles';
 
-const schema = Yup.object().shape({
-  name: Yup.string().required('Nome é obrigatório'),
-  email: Yup.string()
-    .email('Insira um e-mail válido')
-    .required('O email é obrigatório'),
-});
-
 export default function Edit({ match }) {
   const { id } = match.params;
 
@@ -86,7 +79,7 @@ export default function Edit({ match }) {
 
   return (
     <Container>
-      <Form schema={schema} initialData={initialData} onSubmit={handleSubmit}>
+      <Form initialData={initialData} onSubmit={handleSubmit}>
         <Funcoes>
           <h1>{id ? 'Editar entregador' : 'Cadastrar entregador'}</h1>
           <div className="butoes">

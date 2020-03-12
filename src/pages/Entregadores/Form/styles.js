@@ -6,24 +6,20 @@ export const Container = styled.div`
   margin: 50px auto;
   display: flex;
   flex-direction: column;
-
   form {
     background: #fff;
     height: 460px;
     padding: 30px;
     display: flex;
     flex-direction: column;
-
     p {
       font-weight: bold;
     }
-
     span {
       font-weight: bold;
       color: red;
       font-size: 12px;
     }
-
     input {
       font-size: 16px;
       text-indent: 10px;
@@ -40,16 +36,13 @@ export const Container = styled.div`
 export const Funcoes = styled.div`
   display: flex;
   justify-content: space-between;
-
   span {
     color: #fff;
     font-size: 16px;
   }
-
   .butoes {
     display: flex;
   }
-
   button {
     display: flex;
     align-items: flex-end;
@@ -64,7 +57,6 @@ export const Funcoes = styled.div`
     border-radius: 4px;
     font-size: 16px;
     transition: background 0.2;
-
     &:hover {
       background: ${darken(0.3, '#7d40e7')};
     }
@@ -74,14 +66,11 @@ export const Funcoes = styled.div`
 export const Avatar = styled.div`
   align-self: center;
   margin-bottom: 30px;
-
   label {
     cursor: pointer;
-
     &:hover {
       opacity: 0.7;
     }
-
     img {
       height: 120px;
       width: 120px;
@@ -89,7 +78,6 @@ export const Avatar = styled.div`
       border: 3px solid rgba(255, 255, 255, 0.3);
       background: #eee;
     }
-
     input {
       display: none;
     }

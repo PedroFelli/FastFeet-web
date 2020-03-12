@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
-import {
-  MdMoreHoriz,
-  MdRemoveRedEye,
-  MdModeEdit,
-  MdDelete,
-} from 'react-icons/md';
+import { MdAdd, MdMoreHoriz, MdModeEdit, MdDelete } from 'react-icons/md';
 
 import { Link } from 'react-router-dom';
 
@@ -39,12 +34,26 @@ export default function Destinatarios() {
     loadRecipients();
   }, []);
 
+  function handleDelete(id) {
+    console.log(id);
+
+    api.delete(`recipients/${id}`);
+
+    setRecipients(recipients.filter(r => r.id !== id));
+  }
+
   return (
     <Container>
       <header>
         <strong>Destinatarios</strong>
         <Funcoes>
           <input placeholder="Buscar por destinatarios " />
+          <Link to="/recipients/new">
+            <button type="button">
+              <MdAdd size={14} />
+              Cadastrar
+            </button>
+          </Link>
         </Funcoes>
       </header>
       <table>
@@ -73,12 +82,15 @@ export default function Destinatarios() {
                     </div>
                     Editar
                   </Link>
-                  <Link to="/">
-                    <div className="excluir">
-                      <MdDelete />
+                  <button
+                    type="button"
+                    onClick={() => handleDelete(recipient.id)}
+                  >
+                    <div>
+                      <MdDelete color="#ff0000" />
                     </div>
                     Excluir
-                  </Link>
+                  </button>
                 </div>
               </div>
             </td>

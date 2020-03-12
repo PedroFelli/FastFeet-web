@@ -125,17 +125,6 @@ export const Container = styled.div`
   }
 `;
 
-export const StatusEntregue = styled.div`
-  background: #dff0df;
-  color: #2ca42b;
-  border-radius: 14px;
-  height: 24px;
-  display: table-cell;
-  vertical-align: middle;
-  width: 110;
-  padding: 4px;
-`;
-
 export const Funcoes = styled.div`
   display: flex;
   justify-content: space-between;
