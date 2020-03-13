@@ -23,6 +23,7 @@ export default function Routes() {
 
       <Route path="/recipients" exact component={Destinatarios} isPrivate />
       <Route path="/recipients/new" component={DestinatariosForm} isPrivate />
+      <Route path="/recipients/:id" component={DestinatariosForm} isPrivate />
     </Switch>
   );
 }

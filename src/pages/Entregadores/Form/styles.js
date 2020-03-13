@@ -12,14 +12,17 @@ export const Container = styled.div`
     padding: 30px;
     display: flex;
     flex-direction: column;
+
     p {
       font-weight: bold;
     }
+
     span {
       font-weight: bold;
       color: red;
       font-size: 12px;
     }
+
     input {
       font-size: 16px;
       text-indent: 10px;
