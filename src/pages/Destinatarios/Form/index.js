@@ -5,9 +5,12 @@ import { toast } from 'react-toastify';
 import { Form, Input } from '@rocketseat/unform';
 import { Container, Row, Col } from 'react-grid-system';
 import { Link } from 'react-router-dom';
+import { MdDone, MdKeyboardArrowLeft } from 'react-icons/md';
 
 import api from '~/services/api';
 import history from '~/services/history';
+
+import Button from '~/components/Button';
 
 import { Formulario, Funcoes } from './styles';
 
@@ -96,13 +99,20 @@ export default function Edit({ match }) {
             <h1>{id ? 'Editar destinatário' : 'Cadastrar destinatário'}</h1>
             <div className="butoes">
               <Link to="/recipients">
-                <button type="button" className="voltar">
-                  Voltar
-                </button>
+                <Button
+                  icon={MdKeyboardArrowLeft}
+                  type="button"
+                  text="VOLTAR"
+                  color="#999"
+                />
               </Link>
-              <button type="submit" className="salvar">
-                Salvar
-              </button>
+              <Button
+                icon={MdDone}
+                disabled={loading ? 1 : 0}
+                type="submit"
+                text="SALVAR"
+                color="#7d40e7"
+              />
             </div>
           </Funcoes>
           <Row>

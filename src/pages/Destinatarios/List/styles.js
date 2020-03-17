@@ -31,10 +31,6 @@ export const Container = styled.div`
     border-radius: 20px;
   }
 
-  span {
-    vertical-align: middle;
-  }
-
   table {
     border-collapse: collapse;
     width: 100%;
@@ -58,70 +54,59 @@ export const Container = styled.div`
     padding-top: 15px;
   }
 
-  .visualizar {
-    color: #7d40e7;
-    display: inline-grid;
-    padding: 4px;
-  }
-  .editar {
-    color: #4d85ee;
-    display: inline-grid;
-    padding: 4px;
-  }
-  .excluir {
-    color: #de3b3b;
-    display: inline-grid;
-    padding: 4px;
-  }
-
   .dropbtn {
-    background-color: #fff;
+    background-color: #ffffff;
     color: #999999;
     padding: 16px;
     font-size: 16px;
     border: none;
-    cursor: pointer;
   }
 
-  /* The container <div> - needed to position the dropdown content */
   .dropdown {
     position: relative;
     display: inline-block;
   }
 
-  /* Dropdown Content (Hidden by Default) */
   .dropdown-content {
     display: none;
     position: absolute;
     background-color: #ffffff;
-    min-width: 140px;
+    min-width: 97px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
-    text-align: -webkit-left;
+    border: 1px solid #b3b3b3;
   }
 
-  /* Links inside the dropdown */
-  .dropdown-content a {
+  .dropdown-content svg {
+    margin-right: 5px;
+  }
+  .dropdown-content button {
+    background-color: #ffffff;
+    border: none;
     color: black;
-    padding: 4px 16px;
+    padding: 6px 13px;
     text-decoration: none;
     display: block;
-    border-bottom: 1px solid #ddd;
+    font-size: 16px;
   }
 
-  /* Change color of dropdown links on hover */
+  .dropdown-content a {
+    color: black;
+    padding: 6px 16px;
+    text-decoration: none;
+    display: block;
+    border-bottom: 1px solid #b3b3b3;
+  }
+
   .dropdown-content a:hover {
-    background-color: #f1f1f1;
+    background-color: #dadada;
+  }
+  .dropdown-content button:hover {
+    background-color: #dadada;
   }
 
-  /* Show the dropdown menu on hover */
   .dropdown:hover .dropdown-content {
     display: block;
-  }
-
-  /* Change the background color of the dropdown button when the dropdown content is shown */
-  .dropdown:hover .dropbtn {
-    background-color: #dddddd;
   }
 `;
 
@@ -130,19 +115,6 @@ export const Funcoes = styled.div`
   justify-content: space-between;
 
   button {
-    width: 120px;
-    background: #7d40e7;
-    margin: 5px 0 0;
-    height: 40px;
-    font-weight: bold;
-    color: #fff;
-    border: 0;
-    border-radius: 4px;
-    font-size: 16px;
-    transition: background 0.2;
-
-    &:hover {
-      background: ${darken(0.3, '#7d40e7')};
-    }
+    width: 130px;
   }
 `;

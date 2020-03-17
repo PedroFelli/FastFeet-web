@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { darken } from 'polished';
 
 export const Formulario = styled.div`
   margin: 50px auto;
@@ -41,38 +40,12 @@ export const Formulario = styled.div`
 export const Funcoes = styled.div`
   display: flex;
   justify-content: space-between;
-  span {
-    color: #fff;
-    font-size: 16px;
-  }
 
   .butoes {
     display: flex;
-  }
 
-  .salvar {
-    background: #7d40e7;
-    &:hover {
-      background: ${darken(0.3, '#7d40e7')};
-    }
-  }
-
-  button {
-    display: flex;
-    align-items: flex-end;
-    padding-left: 19px;
-    width: 120px;
-    background: #cccccc;
-    margin: 5px 4px 0;
-    height: 40px;
-    font-weight: bold;
-    color: #fff;
-    border: 0;
-    border-radius: 4px;
-    font-size: 16px;
-    transition: background 0.2;
-    &:hover {
-      background: ${darken(0.3, '#CCCCCC')};
+    span {
+      color: white;
     }
   }
 `;

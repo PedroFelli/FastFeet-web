@@ -46,24 +46,6 @@ export const Funcoes = styled.div`
   .butoes {
     display: flex;
   }
-  button {
-    display: flex;
-    align-items: flex-end;
-    padding-left: 19px;
-    width: 120px;
-    background: #7d40e7;
-    margin: 5px 4px 0;
-    height: 40px;
-    font-weight: bold;
-    color: #fff;
-    border: 0;
-    border-radius: 4px;
-    font-size: 16px;
-    transition: background 0.2;
-    &:hover {
-      background: ${darken(0.3, '#7d40e7')};
-    }
-  }
 `;
 
 export const Avatar = styled.div`

@@ -3,12 +3,14 @@ import { darken } from 'polished';
 
 export const ButtonWrapper = styled.button`
   background: ${props => props.color};
-  height: 45px;
+  height: 35px;
+  width: 95px;
   border: 0;
   color: #fff;
   border-radius: 4px;
   display: flex;
   align-items: center;
+  margin-left: 10px;
 
   &:hover {
     background: ${props => darken(0.03, props.color)};
@@ -17,8 +19,6 @@ export const ButtonWrapper = styled.button`
   div {
     display: flex;
     align-items: center;
-    padding: 12px;
-    background: rgba(0, 0, 0, 0.1);
 
     svg {
       color: #fff;
@@ -30,9 +30,9 @@ export const ButtonWrapper = styled.button`
     color: #fff;
     flex: 1;
     text-align: center;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 19px;
     font-weight: bold;
-    margin: 0 12px;
+    margin: 0px;
   }
 `;

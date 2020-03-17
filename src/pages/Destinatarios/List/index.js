@@ -10,6 +10,8 @@ import { Container, Funcoes } from './styles';
 import api from '~/services/api';
 import history from '~/services/history';
 
+import Button from '~/components/Button';
+
 export default function Destinatarios() {
   const [recipients, setRecipients] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -49,10 +51,13 @@ export default function Destinatarios() {
         <Funcoes>
           <input placeholder="Buscar por destinatarios " />
           <Link to="/recipients/new">
-            <button type="button">
-              <MdAdd size={14} />
-              Cadastrar
-            </button>
+            <Button
+              icon={MdAdd}
+              disabled={loading ? 1 : 0}
+              type="submit"
+              text="CADASTRAR"
+              color="#7d40e7"
+            />
           </Link>
         </Funcoes>
       </header>
@@ -75,20 +80,17 @@ export default function Destinatarios() {
             <td>
               <div className="dropdown">
                 <MdMoreHoriz />
+
                 <div className="dropdown-content">
-                  <Link to="/">
-                    <div className="editar">
-                      <MdModeEdit />
-                    </div>
+                  <Link to={`recipients/${recipient.id}`}>
+                    <MdModeEdit color="#4D85EE" />
                     Editar
                   </Link>
                   <button
                     type="button"
                     onClick={() => handleDelete(recipient.id)}
                   >
-                    <div>
-                      <MdDelete color="#ff0000" />
-                    </div>
+                    <MdDelete color="#ff0000" />
                     Excluir
                   </button>
                 </div>

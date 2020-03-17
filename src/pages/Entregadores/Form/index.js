@@ -4,11 +4,13 @@ import { Link } from 'react-router-dom';
 
 import { toast } from 'react-toastify';
 import { Form, Input } from '@rocketseat/unform';
+
 import * as Yup from 'yup';
 
 import api from '~/services/api';
 import history from '~/services/history';
 
+import Button from '~/components/Button';
 import AvatarInput from '~/components/AvatarInput';
 import { Container, Funcoes } from './styles';
 
