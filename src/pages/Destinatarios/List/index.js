@@ -4,13 +4,16 @@ import { toast } from 'react-toastify';
 import { MdAdd, MdMoreHoriz, MdModeEdit, MdDelete } from 'react-icons/md';
 
 import { Link } from 'react-router-dom';
+import { confirmAlert } from 'react-confirm-alert';
 
 import { Container, Funcoes } from './styles';
 
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import api from '~/services/api';
 import history from '~/services/history';
 
 import Button from '~/components/Button';
+import ConfirmAlert from '~/components/ConfirmAlert';
 
 export default function Destinatarios() {
   const [recipients, setRecipients] = useState([]);
@@ -23,7 +26,6 @@ export default function Destinatarios() {
 
         const response = await api.get('recipients');
         setRecipients(response.data);
-        console.log(response.data);
       } catch (error) {
         toast.error('Erro ao carregar dados.');
 
@@ -37,11 +39,30 @@ export default function Destinatarios() {
   }, []);
 
   function handleDelete(id) {
-    console.log(id);
+    async function deleteRecipient() {
+      try {
+        await api.delete(`recipients/${id}`);
 
-    api.delete(`recipients/${id}`);
+        toast.success('Destinatario excluída com sucesso.');
 
-    setRecipients(recipients.filter(r => r.id !== id));
+        setRecipients(recipients.filter(r => r.id !== id));
+      } catch (_) {
+        toast.error('Não foi possível excluir esta matrícula.');
+      }
+    }
+
+    confirmAlert({
+      customUI: (
+        { onClose } // eslint-disable-line
+      ) => (
+        <ConfirmAlert
+          callback={deleteRecipient}
+          onClose={onClose}
+          title="Deseja excluir este destinatario?"
+          message={<p>Deseja mesmo excluí-lo?</p>}
+        />
+      ),
+    });
   }
 
   return (

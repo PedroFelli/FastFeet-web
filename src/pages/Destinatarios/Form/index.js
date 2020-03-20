@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import InputMask from 'react-input-mask';
 
 import { toast } from 'react-toastify';
 import { Form, Input } from '@rocketseat/unform';
@@ -17,6 +18,7 @@ import { Formulario, Funcoes } from './styles';
 export default function Edit({ match }) {
   const { id } = match.params;
 
+  const [cepMask, setCepMask] = useState('');
   const [initialData, setInitialData] = useState();
   const [loading, setLoading] = useState(false);
 
@@ -28,6 +30,8 @@ export default function Edit({ match }) {
         const response = await api.get(`recipients/${id}`);
 
         const { data } = response;
+
+        setCepMask(data.cep);
 
         if (!data) throw new Error('Error to load recipients data');
 
@@ -49,7 +53,7 @@ export default function Edit({ match }) {
   async function handleSubmit(data) {
     if (id) {
       try {
-        const { rua, nome, numero, complemento, estado, cidade, cep } = data;
+        const { rua, nome, numero, complemento, estado, cidade } = data;
 
         await api.put(`recipients/${id}`, {
           rua,
@@ -58,7 +62,7 @@ export default function Edit({ match }) {
           complemento,
           estado,
           cidade,
-          cep,
+          cep: cepMask,
         });
 
         toast.success('Destinatario editado com sucesso.');
@@ -70,7 +74,7 @@ export default function Edit({ match }) {
       }
     } else {
       try {
-        const { rua, nome, numero, complemento, estado, cidade, cep } = data;
+        const { rua, nome, numero, complemento, estado, cidade } = data;
 
         await api.post('recipients', {
           rua,
@@ -79,7 +83,7 @@ export default function Edit({ match }) {
           complemento,
           estado,
           cidade,
-          cep,
+          cep: cepMask,
         });
 
         toast.success('Destinatario cadastrado com sucesso.');
@@ -147,7 +151,14 @@ export default function Edit({ match }) {
             </Col>
             <Col md={4}>
               <p>CEP</p>
-              <Input name="cep" />
+              <InputMask
+                name="cep"
+                mask="99999-999"
+                maskChar=" "
+                alwaysShowMask={false}
+                value={cepMask}
+                onChange={e => [setCepMask(e.target.value)]}
+              />
             </Col>
           </Row>
         </Form>
