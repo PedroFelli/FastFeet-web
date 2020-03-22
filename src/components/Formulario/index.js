@@ -1,15 +1,18 @@
 import styled from 'styled-components';
 
-export const Formulario = styled.div`
+const Formulario = styled.div`
   margin: 50px auto;
   display: flex;
   flex-direction: column;
-  form {
-    background: #fff;
 
-    padding: 30px;
+  form {
     display: flex;
     flex-direction: column;
+
+    .inputs {
+      background: #fff;
+      padding: 30px;
+    }
 
     p {
       color: #444444;
@@ -36,3 +39,5 @@ export const Formulario = styled.div`
     }
   }
 `;
+
+export default Formulario;

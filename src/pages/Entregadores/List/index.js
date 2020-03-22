@@ -1,103 +1,133 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
-import { MdMoreHoriz, MdDelete, MdAdd } from 'react-icons/md';
+import { MdAdd, MdMoreHoriz, MdModeEdit, MdDelete } from 'react-icons/md';
+
+import { Link } from 'react-router-dom';
+import { confirmAlert } from 'react-confirm-alert';
 
 import { Container, Funcoes } from './styles';
+
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import api from '~/services/api';
+import history from '~/services/history';
 
-export default class Dashboard extends Component {
-  state = {
-    deliverymans: [],
-  };
+import Button from '~/components/Button';
+import ConfirmAlert from '~/components/ConfirmAlert';
 
-  async componentDidMount() {
-    const response = await api.get('deliveryman');
+export default function List() {
+  const [deliverymans, setDeliverymans] = useState(['']);
+  const [loading, setLoading] = useState(false);
 
-    this.setState({ deliverymans: response.data });
-  }
+  useEffect(() => {
+    async function loadDeliveryman() {
+      try {
+        setLoading(true);
 
-  handleDelete = deliveryman => {
-    console.log(deliveryman.id);
+        const response = await api.get('deliveryman');
+        setDeliverymans(response.data);
+      } catch (error) {
+        toast.error('Erro ao carregar dados.');
 
-    api.delete(`deliveryman/${deliveryman.id}`);
+        history.push('/dashboard');
+      } finally {
+        setLoading(false);
+      }
+    }
 
-    this.setState({
-      deliverymans: this.state.deliverymans.filter(d => d !== deliveryman),
+    loadDeliveryman();
+  }, []);
+
+  function handleDeliveryman(id) {
+    async function deleteDeliveryman() {
+      try {
+        await api.delete(`deliveryman/${id}`);
+
+        toast.success('Entregador excluído com sucesso.');
+
+        setDeliverymans(deliverymans.filter(r => r.id !== id));
+      } catch (_) {
+        toast.error('Não foi possível excluir este entregador.');
+      }
+    }
+
+    confirmAlert({
+      customUI: (
+        { onClose } // eslint-disable-line
+      ) => (
+        <ConfirmAlert
+          callback={deleteDeliveryman}
+          onClose={onClose}
+          title="Deseja excluir este entregador?"
+          message={<p>Deseja mesmo excluí-lo?</p>}
+        />
+      ),
     });
-  };
-
-  checkImg = e => {
-    if (e === null) {
-      return 'https://api.adorable.io/avatars/abott@adorable.png';
-    } else return e.url;
-  };
-
-  render() {
-    const { deliverymans } = this.state;
-
-    return (
-      <Container>
-        <header>
-          <strong>Entregadores</strong>
-          <Funcoes>
-            <input placeholder="Buscar por entregadores " />
-            <Link to="/deliveryman/new">
-              <button>
-                <MdAdd />
-                Cadastrar
-              </button>
-            </Link>
-          </Funcoes>
-        </header>
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Foto</th>
-              <th>Nome</th>
-              <th>Email</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            {deliverymans.map(deliveryman => (
-              <tr key={deliveryman.id}>
-                <td>#{deliveryman.id}</td>
-                <td>
-                  <img src={this.checkImg(deliveryman.avatar)} />
-                </td>
-                <td> {deliveryman.name}</td>
-                <td>{deliveryman.email}</td>
-                <td>
-                  <div className="dropdown">
-                    <MdMoreHoriz />
-                    <div className="dropdown-content">
-                      <Link to={`deliveryman/${deliveryman.id}`}>
-                        <button type="button">
-                          <div>
-                            <MdDelete color="#4d85ee" />
-                          </div>
-                          Editar
-                        </button>
-                      </Link>
-                      <button
-                        type="button"
-                        onClick={() => this.handleDelete(deliveryman)}
-                      >
-                        <div>
-                          <MdDelete color="#ff0000" />
-                        </div>
-                        Excluir
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </Container>
-    );
   }
+
+  return (
+    <Container>
+      <header>
+        <strong>Entrergadores</strong>
+        <Funcoes>
+          <input placeholder="Buscar por entregadores " />
+          <Link to="/deliveryman/new">
+            <Button
+              icon={MdAdd}
+              disabled={loading ? 1 : 0}
+              type="submit"
+              text="CADASTRAR"
+              color="#7d40e7"
+            />
+          </Link>
+        </Funcoes>
+      </header>
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>Foto</th>
+          <th>Nome</th>
+          <th>email</th>
+          <th>Ações</th>
+        </tr>
+
+        {deliverymans.map(deliveryman => (
+          <tr key={deliveryman.id}>
+            <td>#{deliveryman.id}</td>
+            <td>
+              <img
+                src={
+                  deliveryman.avatar
+                    ? deliveryman.avatar.url
+                    : 'https://api.adorable.io/avatars/abott@adorable.png'
+                }
+                alt={deliveryman.name}
+              />
+            </td>
+            <td> {deliveryman.name}</td>
+            <td>{deliveryman.email}</td>
+            <td>
+              <div className="dropdown">
+                <MdMoreHoriz />
+
+                <div className="dropdown-content">
+                  <Link to={`deliveryman/${deliveryman.id}`}>
+                    <MdModeEdit color="#4D85EE" />
+                    Editar
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => handleDeliveryman(deliveryman.id)}
+                  >
+                    <MdDelete color="#ff0000" />
+                    Excluir
+                  </button>
+                </div>
+              </div>
+            </td>
+          </tr>
+        ))}
+      </table>
+    </Container>
+  );
 }

@@ -116,5 +116,10 @@ export const Funcoes = styled.div`
 
   button {
     width: 130px;
+    div {
+      svg {
+        font-size: 24px;
+      }
+    }
   }
 `;

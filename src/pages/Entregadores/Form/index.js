@@ -3,21 +3,21 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { toast } from 'react-toastify';
+import { Container, Row, Col } from 'react-grid-system';
 import { Form, Input } from '@rocketseat/unform';
-
-import * as Yup from 'yup';
+import { MdDone, MdKeyboardArrowLeft } from 'react-icons/md';
 
 import api from '~/services/api';
 import history from '~/services/history';
 
 import Button from '~/components/Button';
 import AvatarInput from '~/components/AvatarInput';
-import { Container, Funcoes } from './styles';
+import HeaderForm from '~/components/HeaderForm';
+import Formulario from '~/components/Formulario';
 
 export default function Edit({ match }) {
   const { id } = match.params;
-
-  const [initialData, setInitialData] = useState({ avatar: {} });
+  const [initialData, setInitialData] = useState('');
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -80,30 +80,54 @@ export default function Edit({ match }) {
   }
 
   return (
-    <Container>
-      <Form initialData={initialData} onSubmit={handleSubmit}>
-        <Funcoes>
-          <h1>{id ? 'Editar entregador' : 'Cadastrar entregador'}</h1>
-          <div className="butoes">
-            <Link to="/deliveryman">
-              <button type="button" className="voltar">
-                Voltar
-              </button>
-            </Link>
-            <button type="submit" className="salvar">
-              Salvar
-            </button>
+    <Formulario>
+      <Container>
+        <Form initialData={initialData} onSubmit={handleSubmit}>
+          <HeaderForm>
+            <h2>{id ? 'Editar entregador' : 'Cadastrar entregador'}</h2>
+            <div className="butoes">
+              <Link to="/deliveryman">
+                <Button
+                  icon={MdKeyboardArrowLeft}
+                  type="button"
+                  text="VOLTAR"
+                  color="#999"
+                />
+              </Link>
+              <Button
+                icon={MdDone}
+                disabled={loading ? 1 : 0}
+                type="submit"
+                text="SALVAR"
+                color="#7d40e7"
+              />
+            </div>
+          </HeaderForm>
+          <div className="inputs">
+            <AvatarInput
+              url={
+                initialData.avatar
+                  ? initialData.avatar.url
+                  : 'http://localhost:3333/files/salvar.png'
+              }
+            />
+
+            <Row>
+              <Col md={12}>
+                <p>Nome</p>
+                <Input name="name" placeholder="" />
+              </Col>
+            </Row>
+            <Row>
+              <Col md={12}>
+                <p>Email:</p>
+                <Input name="email" type="email" placeholder="" />
+              </Col>
+            </Row>
           </div>
-        </Funcoes>
-
-        <AvatarInput url={initialData.avatar.url} />
-
-        <p>Nome:</p>
-        <Input name="name" placeholder="" />
-        <p>Email:</p>
-        <Input name="email" type="email" placeholder="" />
-      </Form>
-    </Container>
+        </Form>
+      </Container>
+    </Formulario>
   );
 }
 

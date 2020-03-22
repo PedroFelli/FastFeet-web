@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { darken } from 'polished';
 
 export const Container = styled.div`
   max-width: 1000px;
@@ -25,18 +24,6 @@ export const Container = styled.div`
     font-weight: bold;
   }
 
-  img {
-    vertical-align: middle;
-    margin-right: 6px;
-    border-radius: 50px;
-    height: 50px;
-    width: 50px;
-  }
-
-  span {
-    vertical-align: middle;
-  }
-
   table {
     border-collapse: collapse;
     width: 100%;
@@ -49,6 +36,7 @@ export const Container = styled.div`
     font-weight: bold;
     font-size: 16px;
     color: #444444;
+    text-align: left;
   }
 
   td {
@@ -56,49 +44,67 @@ export const Container = styled.div`
     background: #fff;
     text-align: center;
     border-bottom: 1px solid #ddd;
-    padding-bottom: 5px;
-    padding-top: 5px;
+    text-align: left;
+    padding-left: 4px;
+
+    img {
+      vertical-align: middle;
+      margin-right: 6px;
+      border-radius: 50px;
+      height: 50px;
+      width: 50px;
+    }
   }
 
   .dropbtn {
-    background-color: #fff;
+    background-color: #ffffff;
     color: #999999;
     padding: 16px;
     font-size: 16px;
     border: none;
-    cursor: pointer;
   }
 
-  /* The container <div> - needed to position the dropdown content */
   .dropdown {
     position: relative;
     display: inline-block;
   }
+
   .dropdown-content {
     display: none;
     position: absolute;
     background-color: #ffffff;
+    min-width: 97px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
-    text-align: -webkit-left;
-
-    &:hover {
-      background: ${darken(0.1, '#fff')};
-    }
+    border: 1px solid #b3b3b3;
   }
 
-  button {
-    background: white;
+  .dropdown-content svg {
+    margin-right: 5px;
+  }
+  .dropdown-content button {
+    background-color: #ffffff;
     border: none;
     color: black;
-    padding: 4px 16px;
-    display: flex;
-    flex-direction: row;
-    width: 100%;
+    padding: 6px 13px;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+  }
 
-    &:hover {
-      background: ${darken(0.1, '#fff')};
-    }
+  .dropdown-content a {
+    color: black;
+    padding: 6px 16px;
+    text-decoration: none;
+    display: block;
+    border-bottom: 1px solid #b3b3b3;
+  }
+
+  .dropdown-content a:hover {
+    background-color: #dadada;
+  }
+  .dropdown-content button:hover {
+    background-color: #dadada;
   }
 
   .dropdown:hover .dropdown-content {
@@ -106,35 +112,16 @@ export const Container = styled.div`
   }
 `;
 
-export const StatusEntregue = styled.div`
-  background: #dff0df;
-  color: #2ca42b;
-  border-radius: 14px;
-  height: 24px;
-  display: table-cell;
-  vertical-align: middle;
-  width: 110;
-  padding: 4px;
-`;
-
 export const Funcoes = styled.div`
   display: flex;
   justify-content: space-between;
 
   button {
-    width: 120px;
-    background: #7d40e7;
-    margin: 5px 0 0;
-    height: 40px;
-    font-weight: bold;
-    color: #fff;
-    border: 0;
-    border-radius: 4px;
-    font-size: 16px;
-    transition: background 0.2;
-
-    &:hover {
-      background: ${darken(0.3, '#7d40e7')};
+    width: 130px;
+    div {
+      svg {
+        font-size: 24px;
+      }
     }
   }
 `;

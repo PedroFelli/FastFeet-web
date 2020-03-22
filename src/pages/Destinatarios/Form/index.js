@@ -12,8 +12,9 @@ import api from '~/services/api';
 import history from '~/services/history';
 
 import Button from '~/components/Button';
+import HeaderForm from '~/components/HeaderForm';
 
-import { Formulario, Funcoes } from './styles';
+import { Formulario } from './styles';
 
 export default function Edit({ match }) {
   const { id } = match.params;
@@ -99,7 +100,7 @@ export default function Edit({ match }) {
     <Formulario>
       <Container>
         <Form initialData={initialData} onSubmit={handleSubmit}>
-          <Funcoes>
+          <HeaderForm>
             <h1>{id ? 'Editar destinatário' : 'Cadastrar destinatário'}</h1>
             <div className="butoes">
               <Link to="/recipients">
@@ -118,7 +119,7 @@ export default function Edit({ match }) {
                 color="#7d40e7"
               />
             </div>
-          </Funcoes>
+          </HeaderForm>
           <Row>
             <Col md={12}>
               <p>Nome</p>
